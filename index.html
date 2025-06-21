@@ -1,0 +1,1730 @@
+<!DOCTYPE html>
+<html lang="km" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Donate4Khmer - ជំរុញសហគមន៍</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bayon&family=Kantumruy+Pro:wght@100;300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css" />
+    <!-- <style>
+      /* Custom styles for the payment modal */
+      .payment-method-card {
+        @apply flex flex-col items-center justify-center p-5 border-2 border-gray-200 rounded-xl cursor-pointer transition duration-200 ease-in-out hover:border-blue-400;
+      }
+      .payment-method-card.active {
+        @apply border-blue-600 bg-blue-50 shadow-md;
+      }
+      .payment-method-card span {
+        @apply mt-2 text-lg font-medium text-gray-700;
+      }
+      .quick-amount-button {
+        @apply px-4 py-2 border border-gray-300 rounded-lg text-lg font-medium text-gray-700 hover:bg-gray-100 transition duration-200;
+      }
+      .loader {
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #3498db;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Modal Overlay and Content for Payment Status */
+      /* Ensure the modal overlay allows content to scroll within it */
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        display: flex;
+        /* Changed to flex-start and auto overflow for scrolling */
+        align-items: flex-start; /* Align content to the top initially */
+        justify-content: center;
+        overflow-y: auto; /* Allow vertical scrolling for the overlay */
+        padding-top: 2rem; /* Add some top padding when content is at the top */
+        padding-bottom: 2rem; /* Add some bottom padding */
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+      }
+
+      .modal-overlay.visible {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .modal-content {
+        background-color: white;
+        padding: 2.5rem;
+        border-radius: 1rem;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        max-width: 450px;
+        width: 90%;
+        text-align: center;
+        position: relative;
+        transform: translateY(-20px);
+        opacity: 0;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        /* Added max-height and overflow for internal content scrolling */
+        max-height: 90vh; /* Limit content height */
+        overflow-y: auto; /* Enable scrolling for modal content */
+      }
+
+      .modal-overlay.visible .modal-content {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      .modal-close-button {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: none;
+        border: none;
+        font-size: 2.5rem;
+        line-height: 1;
+        color: #9ca3af;
+        cursor: pointer;
+        transition: color 0.2s ease;
+      }
+
+      .modal-close-button:hover {
+        color: #4b5563;
+      }
+
+      #copyToast {
+        animation: slideInFadeOut 4s forwards;
+      }
+
+      @keyframes slideInFadeOut {
+        0% {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        10% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        90% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+      }
+    </style> -->
+  </head>
+  <body class="w-full min-h-screen antialiased text-gray-800 bg-gray-50">
+    <div class="relative overflow-x-hidden">
+      <div class="fixed inset-0 -z-10 overflow-hidden opacity-30">
+        <div
+          class="absolute w-[300px] h-[300px] rounded-full bg-gradient-to-br from-blue-400 to-purple-400 opacity-10 blur-[60px] top-[10%] left-[5%] animate-float"
+        ></div>
+        <div
+          class="absolute w-[400px] h-[400px] rounded-full bg-gradient-to-br from-pink-200 to-blue-200 opacity-10 blur-[60px] bottom-[15%] right-[10%] animate-float delay-200"
+        ></div>
+        <div
+          class="absolute w-[250px] h-[250px] rounded-full bg-gradient-to-br from-green-300 to-blue-300 opacity-10 blur-[60px] top-1/2 left-[30%] animate-float delay-400"
+        ></div>
+        <div
+          class="absolute w-[350px] h-[350px] rounded-lg bg-gradient-to-br from-red-200 to-pink-200 opacity-10 blur-[60px] top-[60%] left-[60%] animate-float delay-100"
+        ></div>
+        <div
+          class="absolute w-[200px] h-[200px] rounded-lg bg-gradient-to-br from-orange-200 to-pink-300 opacity-10 blur-[60px] top-[20%] right-[20%] animate-float delay-300"
+        ></div>
+      </div>
+
+      <nav
+        id="main-navbar"
+        class="fixed top-0 left-0 w-full py-4 px-6 md:px-12 z-50 backdrop-blur-md bg-white/80 border-b border-gray-100 shadow-sm transition-all duration-300"
+      >
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+          <a
+            href="#hero-section"
+            class="flex items-center text-3xl font-bold text-gray-800 tracking-tight"
+            aria-label="Donate4Khmer Home"
+          >
+            <span>DONATE</span>
+            <span class="text-emerald-500 animate-pulse text-4xl">.</span>
+            <span class="text-sky-500 text-base ml-1">for Khmer</span>
+          </a>
+
+          <div class="hidden md:flex items-center space-x-8">
+            <a
+              href="#hero-section"
+              class="nav-link relative group text-gray-600 hover:text-gray-900 transition-colors py-2 text-lg font-medium"
+            >
+              <span class="relative">
+                ទំព័រដើម
+                <span
+                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-emerald-500 group-hover:w-full transition-all duration-300"
+                ></span>
+              </span>
+            </a>
+            <a
+              href="#donations"
+              class="nav-link relative group text-gray-600 hover:text-gray-900 transition-colors py-2 text-lg font-medium"
+            >
+              <span class="relative">
+                គម្រោងរបស់យើង
+                <span
+                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-emerald-500 group-hover:w-full transition-all duration-300"
+                ></span>
+              </span>
+            </a>
+            <a
+              href="#how-it-works"
+              class="nav-link relative group text-gray-600 hover:text-gray-900 transition-colors py-2 text-lg font-medium"
+            >
+              <span class="relative">
+                របៀបបរិច្ចាគ<span
+                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-emerald-500 group-hover:w-full transition-all duration-300"
+                ></span>
+              </span>
+            </a>
+            <a
+              href="#about-us"
+              class="nav-link relative group text-gray-600 hover:text-gray-900 transition-colors py-2 text-lg font-medium"
+            >
+              <span class="relative">
+                អំពីយើង
+                <span
+                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-emerald-500 group-hover:w-full transition-all duration-300"
+                ></span>
+              </span>
+            </a>
+            <a
+              href="#contact-us"
+              class="nav-link relative group text-gray-600 hover:text-gray-900 transition-colors py-2 text-lg font-medium"
+            >
+              <span class="relative">
+                ទំនាក់ទំនង
+                <span
+                  class="absolute bottom-0 left-0 w-0 h-0.5 bg-emerald-500 group-hover:w-full transition-all duration-300"
+                ></span>
+              </span>
+            </a>
+          
+          </div>
+
+          <div class="md:hidden">
+            <button
+              id="mobile-menu-button"
+              class="text-gray-600 hover:text-gray-900 focus:outline-none focus:text-gray-900"
+              aria-label="Toggle mobile menu"
+            >
+              <svg
+                class="w-8 h-8"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      <div
+        id="mobile-menu"
+        class="hidden md:hidden fixed top-0 left-0 w-full h-full bg-white bg-opacity-95 z-40 flex flex-col items-center justify-center space-y-8 text-xl font-bold p-6"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Mobile Navigation Menu"
+      >
+        <button
+          id="close-mobile-menu"
+          class="absolute top-6 right-6 text-gray-600 hover:text-gray-900 focus:outline-none"
+          aria-label="Close mobile menu"
+        >
+          <svg
+            class="w-8 h-8"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            ></path>
+          </svg>
+        </button>
+        <a
+          href="#hero-section"
+          class="text-gray-800 hover:text-green-600 transition-colors"
+          >ទំព័រដើម</a
+        >
+        <a
+          href="#donations"
+          class="text-gray-800 hover:text-green-600 transition-colors"
+          >គម្រោងរបស់យើង</a
+        >
+        <a
+          href="#how-it-works"
+          class="text-gray-800 hover:text-green-600 transition-colors"
+          >របៀបបរិច្ចាគ</a
+        >
+        <a
+          href="#about-us"
+          class="text-gray-800 hover:text-green-600 transition-colors"
+          >អំពីយើង</a
+        >
+        <a
+          href="#contact-us"
+          class="text-gray-800 hover:text-green-600 transition-colors"
+          >ទំនាក់ទំនង</a
+        >
+        <button
+          id="mobile-donate-button"
+          class="px-8 py-4 bg-green-600 text-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 flex items-center justify-center font-semibold"
+          aria-label="Donate Now"
+        >
+          បរិច្ចាគឥឡូវ
+          <svg
+            class="w-5 h-5 ml-2"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M14 5l7 7m0 0l-7 7m7-7H3"
+            ></path>
+          </svg>
+        </button>
+      </div>
+
+      <section
+        id="hero-section"
+        class="min-h-screen pt-32 pb-20 px-6 md:px-12 flex flex-col lg:flex-row items-center justify-between max-w-7xl mx-auto"
+      >
+        <div class="lg:w-1/2 mb-16 lg:mb-0 animate-slide-in">
+          <h1
+            class="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 text-gray-800 font-bayon"
+          >
+            <span class="block text-green-600">ពង្រឹងអនាគត</span>
+            <span class="block text-sky-500">សហគមន៍កម្ពុជា</span>
+            <span class="block text-green-600">តាមរយៈសប្បុរសធម៌</span>
+          </h1>
+          <p class="text-lg md:text-xl text-gray-700 mb-10 max-w-lg leading-relaxed">
+            Donate4Khmer គឺជាស្ពានដែលនាំយកសេចក្តីសប្បុរសរបស់អ្នកទៅកាន់អង្គការមូលនិធិដ៏មានឥទ្ធិពលបំផុតរបស់កម្ពុជាដោយផ្ទាល់។
+            អង្គការទាំងនេះកំពុងប្រែក្លាយជីវិត និងកសាងអនាគតដ៏ភ្លឺស្វាងនៅទូទាំងប្រទេស។
+            រួបរួមគ្នាទើបយើងអាចសម្រេចបាននូវការផ្លាស់ប្តូរដ៏អស្ចារ្យ។
+          </p>
+          <div
+            class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4"
+          >
+            <button
+              id="hero-donate-button"
+              class="px-8 py-4 bg-green-600 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center text-lg font-semibold"
+              aria-label="Donate Now"
+            >
+              បរិច្ចាគឥឡូវនេះ
+              <svg
+                class="w-6 h-6 ml-3"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M14 5l7 7m0 0l-7 7m7-7H3"
+                ></path>
+              </svg>
+            </button>
+            <a
+              href="#about-us"
+              class="px-8 py-4 bg-white text-green-600 border-2 border-green-600 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center text-lg font-semibold"
+              aria-label="Learn about our mission"
+            >
+              ស្វែងយល់ពីបេសកកម្មរបស់យើង
+            </a>
+          </div>
+        </div>
+        <div class="lg:w-1/2 relative mt-12 lg:mt-0 max-w-2xl w-full">
+          <div
+            id="default-carousel"
+            class="relative rounded-lg overflow-hidden shadow-lg"
+            data-carousel
+          >
+            <div class="relative h-80 md:h-96" data-carousel-inner>
+              <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                <img
+                  src="https://images.unsplash.com/photo-1576091160550-fd42a8b007fb?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  onerror="this.onerror=null;this.src='https://placehold.co/1200x800/A7F3D0/047857?text=Medical+Care';"
+                  class="object-cover w-full h-full rounded-lg"
+                  alt="Medical assistance for children in Cambodia"
+                />
+                <span
+                  class="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-lg font-semibold text-white bg-black/50 px-4 py-2 rounded-lg md:text-xl drop-shadow-lg"
+                  >ផ្តល់ក្តីសង្ឃឹមតាមរយៈការថែទាំសុខភាព</span
+                >
+              </div>
+              <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                <img
+                  src="https://images.unsplash.com/photo-1546410531-bb4486241bba?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  onerror="this.onerror=null;this.src='https://placehold.co/1200x800/93C5FD/1D4ED8?text=Education';"
+                  class="object-cover w-full h-full rounded-lg"
+                  alt="Children learning in a Cambodian school"
+                />
+                <span
+                  class="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-lg font-semibold text-white bg-black/50 px-4 py-2 rounded-lg md:text-xl drop-shadow-lg"
+                  >បំភ្លឺអនាគតតាមរយៈការអប់រំ</span
+                >
+              </div>
+              <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                <img
+                  src="https://images.unsplash.com/photo-1582213782179-e0d53f9ef1d2?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  onerror="this.onerror=null;this.src='https://placehold.co/1200x800/FDBA74/C2410C?text=Community+Dev';"
+                  class="object-cover w-full h-full rounded-lg"
+                  alt="Community development in rural Cambodia"
+                />
+                <span
+                  class="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-lg font-semibold text-white bg-black/50 px-4 py-2 rounded-lg md:text-xl drop-shadow-lg"
+                  >កសាងសហគមន៍កាន់តែរឹងមាំ</span
+                >
+              </div>
+              <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                <img
+                  src="https://images.unsplash.com/photo-1587300003388-59208cc9ff0e?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  onerror="this.onerror=null;this.src='https://placehold.co/1200x800/D8B4FE/7E22CE?text=Animal+Welfare';"
+                  class="object-cover w-full h-full rounded-lg"
+                  alt="Animals receiving care in Cambodia"
+                />
+                <span
+                  class="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-lg font-semibold text-white bg-black/50 px-4 py-2 rounded-lg md:text-xl drop-shadow-lg"
+                  >ការពារ និងថែទាំសត្វ</span
+                >
+              </div>
+              <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                <img
+                  src="https://images.unsplash.com/photo-1508210339908-410a803f2604?q=80&w=2862&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  onerror="this.onerror=null;this.src='https://placehold.co/1200x800/FECACA/EF4444?text=Clean+Water';"
+                  class="object-cover w-full h-full rounded-lg"
+                  alt="Clean water initiative in Cambodia"
+                />
+                <span
+                  class="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-lg font-semibold text-white bg-black/50 px-4 py-2 rounded-lg md:text-xl drop-shadow-lg"
+                  >ធានាបាននូវទឹកស្អាត</span
+                >
+              </div>
+              <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                <img
+                  src="https://images.unsplash.com/photo-1546594242-ff5047b1981e?q=80&w=2940&auto=format&fit=fit&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  onerror="this.onerror=null;this.src='https://placehold.co/1200x800/A8A29E/44403C?text=Disaster+Relief';"
+                  class="object-cover w-full h-full rounded-lg"
+                  alt="Disaster relief efforts in Cambodia"
+                />
+                <span
+                  class="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-lg font-semibold text-white bg-black/50 px-4 py-2 rounded-lg md:text-xl drop-shadow-lg"
+                  >ឆ្លើយតបនឹងគ្រោះមហន្តរាយ</span
+                >
+              </div>
+            </div>
+
+            <div
+              class="flex absolute bottom-5 left-1/2 z-30 -translate-x-1/2 space-x-3"
+              data-carousel-indicators
+            >
+              <button
+                type="button"
+                class="w-3 h-3 rounded-full"
+                aria-current="true"
+                aria-label="Slide 1"
+                data-carousel-slide-to="0"
+              ></button>
+              <button
+                type="button"
+                class="w-3 h-3 rounded-full"
+                aria-current="false"
+                aria-label="Slide 2"
+                data-carousel-slide-to="1"
+              ></button>
+              <button
+                type="button"
+                class="w-3 h-3 rounded-full"
+                aria-current="false"
+                aria-label="Slide 3"
+                data-carousel-slide-to="2"
+              ></button>
+              <button
+                type="button"
+                class="w-3 h-3 rounded-full"
+                aria-current="false"
+                aria-label="Slide 4"
+                data-carousel-slide-to="3"
+              ></button>
+              <button
+                type="button"
+                class="w-3 h-3 rounded-full"
+                aria-current="false"
+                aria-label="Slide 5"
+                data-carousel-slide-to="4"
+              ></button>
+              <button
+                type="button"
+                class="w-3 h-3 rounded-full"
+                aria-current="false"
+                aria-label="Slide 6"
+                data-carousel-slide-to="5"
+              ></button>
+            </div>
+
+            <button
+              type="button"
+              class="flex absolute top-1/2 left-3 z-40 items-center justify-center w-10 h-10 bg-gray-200/50 rounded-full hover:bg-gray-300 focus:outline-none transition-all duration-300 transform -translate-y-1/2 group"
+              data-carousel-prev
+              aria-label="Previous slide"
+            >
+              <svg
+                class="w-5 h-5 text-gray-600 group-hover:text-gray-800 transition-colors duration-300"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 19l-7-7 7-7"
+                ></path>
+              </svg>
+              <span class="sr-only">Previous</span>
+            </button>
+            <button
+              type="button"
+              class="flex absolute top-1/2 right-3 z-40 items-center justify-center w-10 h-10 bg-gray-200/50 rounded-full hover:bg-gray-300 focus:outline-none transition-all duration-300 transform -translate-y-1/2 group"
+              data-carousel-next
+              aria-label="Next slide"
+            >
+              <svg
+                class="w-5 h-5 text-gray-600 group-hover:text-gray-800 transition-colors duration-300"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 5l7 7-7 7"
+                ></path>
+              </svg>
+              <span class="sr-only">Next</span>
+            </button>
+          </div>
+          </div>
+      </section>
+
+      <section id="donations" class="py-20 px-6 md:px-12 bg-white hidden-section">
+        <div
+          class="container w-full max-w-7xl mx-auto p-8 rounded-2xl shadow-xl border border-gray-100"
+        >
+          <div
+            class="header flex flex-col md:flex-row md:items-end md:justify-between mb-12 relative px-4 md:px-0"
+          >
+            <div class="mb-6 md:mb-0">
+              <h2
+                class="pt-4 text-4xl sm:text-5xl font-extrabold leading-tight text-green-600 font-bayon"
+              >
+                ប្រភេទនៃការបរិច្ចាគ
+              </h2>
+            </div>
+          </div>
+
+          <div
+            id="donation-cards-container"
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-4 md:px-0"
+          ></div>
+        </div>
+      </section>
+
+      <section id="how-it-works" class="py-20 px-6 md:px-12 bg-blue-50">
+        <div class="max-w-7xl mx-auto">
+          <h2
+            class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-center text-green-600 mb-16 font-bayon leading-tight"
+          >
+            ដំណើរការបរិច្ចាគងាយៗរបស់យើង
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div
+              class="flex flex-col items-center text-center p-8 bg-white rounded-3xl shadow-xl border border-blue-100 transform transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:border-blue-300"
+            >
+              <div
+                class="w-24 h-24 bg-green-600 text-white rounded-full flex items-center justify-center text-4xl font-bold mb-8 shadow-lg ring-4 ring-green-200"
+              >
+                <svg
+                  class="w-12 h-12"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                  ></path>
+                </svg>
+              </div>
+              <h3 class="text-3xl font-bold text-gray-900 mb-4 font-bayon">
+                ជ្រើសរើសគម្រោងរបស់អ្នក
+              </h3>
+              <p class="text-gray-700 leading-relaxed text-lg">
+                ស្វែងយល់ពីគម្រោងសប្បុរសធម៌ចម្រុះរបស់យើង
+                និងជ្រើសរើសបុព្វហេតុដែលអ្នកជឿជាក់បំផុត។
+                រាល់ការបរិច្ចាគរបស់អ្នកនឹងបង្កើតការផ្លាស់ប្តូរដ៏ពិតប្រាកដ។
+              </p>
+            </div>
+            <div
+              class="flex flex-col items-center text-center p-8 bg-white rounded-3xl shadow-xl border border-blue-100 transform transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:border-blue-300"
+            >
+              <div
+                class="w-24 h-24 bg-sky-600 text-white rounded-full flex items-center justify-center text-4xl font-bold mb-8 shadow-lg ring-4 ring-sky-200"
+              >
+                <svg
+                  class="w-12 h-12"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                  ></path>
+                </svg>
+              </div>
+              <h3 class="text-3xl font-bold text-gray-900 mb-4 font-bayon">
+                បរិច្ចាគដោយទំនុកចិត្ត
+              </h3>
+              <p class="text-gray-700 leading-relaxed text-lg">
+                បរិច្ចាគដោយទំនុកចិត្តតាមរយៈប្រព័ន្ធសុវត្ថិភាព និងងាយស្រួលរបស់យើង។
+                ជ្រើសរើសវិធីសាស្ត្រទូទាត់ដែលអ្នកពេញចិត្ត
+                ហើយយើងខ្ញុំសូមធានាថា រាល់ការបរិច្ចាគរបស់អ្នកនឹងទៅដល់សហគមន៍ដោយផ្ទាល់។
+              </p>
+            </div>
+            <div
+              class="flex flex-col items-center text-center p-8 bg-white rounded-3xl shadow-xl border border-blue-100 transform transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:border-blue-300"
+            >
+              <div
+                class="w-24 h-24 bg-amber-600 text-white rounded-full flex items-center justify-center text-4xl font-bold mb-8 shadow-lg ring-4 ring-amber-200"
+              >
+                <svg
+                  class="w-12 h-12"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                  ></path>
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                  ></path>
+                </svg>
+              </div>
+              <h3 class="text-3xl font-bold text-gray-900 mb-4 font-bayon">
+                តាមដានផលប៉ះពាល់របស់អ្នក
+              </h3>
+              <p class="text-gray-700 leading-relaxed text-lg">
+                យើងខ្ញុំជឿជាក់លើតម្លាភាព។ ដូច្នេះ
+                អ្នកអាចតាមដានយ៉ាងងាយស្រួលអំពីរបៀបដែលការបរិច្ចាគរបស់អ្នកកំពុងនាំមកនូវការផ្លាស់ប្តូរជីវិតពិតប្រាកដ។
+                រាល់ការគាំទ្ររបស់អ្នក នឹងត្រូវបានបង្ហាញយ៉ាងច្បាស់លាស់។
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="about-us" class="py-20 px-6 md:px-12 bg-emerald-100 hidden-section">
+        <div
+          class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12"
+        >
+          <div class="lg:w-1/2">
+            <img
+              src="https://images.unsplash.com/photo-1579201944645-0ffc0df7c6e4?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              alt="About Us Image - Mission and Vision"
+              class="rounded-2xl shadow-2xl hover:shadow-3xl transition-transform duration-500 transform hover:scale-105 border-4 border-emerald-200 object-cover w-full h-auto"
+              onerror="this.src='https://placehold.co/700x500/D1FAE5/065F46?text=Our+Mission+and+Vision';"
+            />
+          </div>
+          <div class="lg:w-1/2 text-center lg:text-left">
+            <h2
+              class="text-4xl sm:text-5xl font-extrabold text-green-600 mb-6 font-bayon"
+            >
+              អំពីបេសកកម្មរបស់យើង
+            </h2>
+            <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+              សូមស្វាគមន៍មកកាន់ Donate4Khmer, យើងគឺជាវេទិកាសប្បុរសធម៌ឈានមុខគេ
+              ដែលផ្តោតលើការផ្តល់ជំនួយសហគមន៍ប្រកបដោយចក្ខុវិស័យទូលំទូលាយ។
+              យើងមានកិត្តិយសក្នុងការសម្របសម្រួលរាល់ការបរិច្ចាគប្រកបដោយឥទ្ធិពលបំផុត
+              ដើម្បីគាំទ្រដល់គម្រោងសំខាន់ៗដែលកំពុងផ្លាស់ប្តូរជីវិត
+              និងកសាងអនាគតដ៏ភ្លឺស្វាងនៅទូទាំងប្រទេសកម្ពុជា។
+            </p>
+            <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+              បេសកកម្មចម្បងរបស់យើងគឺលើកកម្ពស់ជីវភាពរស់នៅ
+              និងផ្តល់អំណាចដល់សហគមន៍ដែលងាយរងគ្រោះបំផុត។
+              យើងប្តេជ្ញាផ្តល់ការគាំទ្រដ៏សំខាន់ដល់មន្ទីរពេទ្យកុមារ
+              បង្កើនឱកាសអប់រំសម្រាប់យុវជន
+              ជួយសង្គ្រោះសហគមន៍ជនបទដែលខ្វះខាត
+              និងធានាសុខុមាលភាពរបស់សត្វដែលងាយរងគ្រោះ។
+              គោលការណ៍ណែនាំរបស់យើងគឺផ្អែកលើតម្លាភាព
+              ប្រសិទ្ធភាព និងផលប៉ះពាល់ប្រកបដោយនិរន្តរភាព។
+            </p>
+            <p class="text-lg text-gray-700 leading-relaxed">
+              រាល់ការរួមចំណែករបស់អ្នក គឺជាការវិនិយោគដ៏សំខាន់ក្នុងការកសាងប្រទេសកម្ពុជាដែលរឹងមាំ
+              មានសុខភាពល្អ និងមានការអប់រំកាន់តែប្រសើរឡើង។
+              យើងសូមអញ្ជើញអ្នកឱ្យក្លាយជាផ្នែកមួយនៃចលនាដ៏មានអត្ថន័យនេះ។
+            </p>
+            <a
+              href="#donations"
+              class="mt-8 px-8 py-4 bg-green-600 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center mx-auto lg:mx-0 text-lg font-semibold w-fit"
+              aria-label="Explore Our Projects"
+            >
+              ស្វែងយល់ពីគម្រោងរបស់យើង
+              <svg
+                class="w-6 h-6 ml-3"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M14 5l7 7m0 0l-7 7m7-7H3"
+                ></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section id="impact-stats" class="py-20 px-6 md:px-12 bg-white hidden-section">
+        <div class="max-w-7xl mx-auto text-center">
+          <h2
+            class="text-4xl sm:text-5xl font-extrabold text-green-600 mb-12 font-bayon"
+          >
+            សមិទ្ធផលរបស់យើង
+          </h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div
+              class="p-6 bg-emerald-50 rounded-2xl shadow-lg border border-emerald-100 flex flex-col items-center justify-center text-center transition-transform duration-300 hover:scale-[1.03] hover:shadow-xl"
+            >
+              <div
+                class="text-green-600 text-5xl font-bold mb-3 font-bayon"
+              >
+                1,200+
+              </div>
+              <p class="text-xl font-semibold text-gray-800 mb-2">
+                ជីវិតត្រូវបានផ្លាស់ប្តូរ
+              </p>
+              <p class="text-gray-600 text-sm">
+                តាមរយៈ​ មូលនិធិមន្ទីរពេទ្យគន្ធបុប្ផា​
+              </p>
+            </div>
+            <div
+              class="p-6 bg-sky-50 rounded-2xl shadow-lg border border-sky-100 flex flex-col items-center justify-center text-center transition-transform duration-300 hover:scale-[1.03] hover:shadow-xl"
+            >
+              <div class="text-sky-600 text-5xl font-bold mb-3 font-bayon">
+                2,000+
+              </div>
+              <p class="text-xl font-semibold text-gray-800 mb-2">
+                បានទិញសម្ភារ:ជាច្រើន
+              </p>
+              <p class="text-gray-600 text-sm">
+                តាមរយៈ​​ មូលនិធិកងកម្លាំងជើងមុខ
+              </p>
+            </div>
+            <div
+              class="p-6 bg-amber-50 rounded-2xl shadow-lg border border-amber-100 flex flex-col items-center justify-center text-center transition-transform duration-300 hover:scale-[1.03] hover:shadow-xl"
+            >
+              <div class="text-amber-600 text-5xl font-bold mb-3 font-bayon">
+                300+
+              </div>
+              <p class="text-xl font-semibold text-gray-800 mb-2">
+                តាសុីក្លូបានប្រសើរជាងមុន
+              </p>
+              <p class="text-gray-600 text-sm">
+                តាមរយៈ មូលនិធិតាសុីក្លូ
+              </p>
+            </div>
+            <div
+              class="p-6 bg-rose-50 rounded-2xl shadow-lg border border-rose-100 flex flex-col items-center justify-center text-center transition-transform duration-300 hover:scale-[1.03] hover:shadow-xl"
+            >
+              <div class="text-rose-600 text-5xl font-bold mb-3 font-bayon">
+                1,200+
+              </div>
+              <p class="text-xl font-semibold text-gray-800 mb-2">
+                បានជួយសិស្សានុសិស្ស
+              </p>
+              <p class="text-gray-600 text-sm">
+                តាមរយៈ​ មូលនិធិសម្រាប់សិស្ស​ក្រីក្រ
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="testimonials" class="py-20 px-6 md:px-12 bg-gray-50 hidden-section">
+        <div class="max-w-7xl mx-auto">
+          <h2
+            class="text-4xl sm:text-5xl font-extrabold text-center text-green-600 mb-12 font-bayon"
+          >
+            អ្វីដែលអ្នកដទៃនិយាយអំពីយើង
+          </h2>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+            <div
+              class="bg-white p-8 rounded-2xl shadow-xl border border-gray-100 flex flex-col transition-transform duration-300 hover:scale-[1.01] hover:shadow-2xl"
+            >
+              <div class="flex items-center mb-6">
+                <img
+                  src="https://randomuser.me/api/portraits/women/65.jpg"
+                  onerror="this.onerror=null;this.src='https://placehold.co/60x60/E0F2F7/007BFF?text=User';"
+                  alt="Customer avatar"
+                  class="w-16 h-16 rounded-full mr-4 object-cover border-2 border-emerald-300"
+                />
+                <div>
+                  <p class="font-bold text-lg text-gray-900">Elon Mask</p>
+                </div>
+              </div>
+              <p class="text-gray-700 leading-relaxed text-base italic mb-6">
+                "Donate4Khmer ពិតជាផ្លាស់ប្តូរជីវិតកុមារជាច្រើននៅក្នុងប្រទេសកម្ពុជា។
+                ខ្ញុំមានមោទនភាពដែលបានក្លាយជាផ្នែកមួយនៃចលនាដ៏អស្ចារ្យនេះ។
+                តម្លាភាព និងប្រសិទ្ធភាពរបស់ពួកគេគឺគួរឱ្យសរសើរខ្លាំងណាស់!"
+              </p>
+              <div class="flex items-center text-amber-400">
+                <svg
+                  class="w-5 h-5 fill-current"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 18.896l-7.416 3.817 1.48-8.279L.004 9.306l8.332-1.151L12 .587z"
+                  />
+                </svg>
+                <svg
+                  class="w-5 h-5 fill-current"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 18.896l-7.416 3.817 1.48-8.279L.004 9.306l8.332-1.151L12 .587z"
+                  />
+                </svg>
+                <svg
+                  class="w-5 h-5 fill-current"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 18.896l-7.416 3.817 1.48-8.279L.004 9.306l8.332-1.151L12 .587z"
+                  />
+                </svg>
+                <svg
+                  class="w-5 h-5 fill-current"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 18.896l-7.416 3.817 1.48-8.279L.004 9.306l8.332-1.151L12 .587z"
+                  />
+                </svg>
+                <svg
+                  class="w-5 h-5 fill-current text-gray-300"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 18.896l-7.416 3.817 1.48-8.279L.004 9.306l8.332-1.151L12 .587z"
+                  />
+                </svg>
+              </div>
+            </div>
+            <div
+              class="bg-white p-8 rounded-2xl shadow-xl border border-gray-100 flex flex-col transition-transform duration-300 hover:scale-[1.01] hover:shadow-2xl"
+            >
+              <div class="flex items-center mb-6">
+                <img
+                  src="https://randomuser.me/api/portraits/men/47.jpg"
+                  onerror="this.onerror=null;this.src='https://placehold.co/60x60/E0F2F7/007BFF?text=User';"
+                  alt="Customer avatar"
+                  class="w-16 h-16 rounded-full mr-4 object-cover border-2 border-sky-300"
+                />
+                <div>
+                  <p class="font-bold text-lg text-gray-900">Steve Job</p>
+                </div>
+              </div>
+              <p class="text-gray-700 leading-relaxed text-base italic mb-6">
+                "ដោយសារតែ Donate4Khmer កុមារជាច្រើនបានទទួលការព្យាបាល
+                និងការអប់រំដែលពួកគេត្រូវការ។ពួកគេពិតជាធ្វើការងារបានល្អឥតខ្ចោះ!"
+              </p>
+              <div class="flex items-center text-amber-400">
+                <svg
+                  class="w-5 h-5 fill-current"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 18.896l-7.416 3.817 1.48-8.279L.004 9.306l8.332-1.151L12 .587z"
+                  />
+                </svg>
+                <svg
+                  class="w-5 h-5 fill-current"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 18.896l-7.416 3.817 1.48-8.279L.004 9.306l8.332-1.151L12 .587z"
+                  />
+                </svg>
+                <svg
+                  class="w-5 h-5 fill-current"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 18.896l-7.416 3.817 1.48-8.279L.004 9.306l8.332-1.151L12 .587z"
+                  />
+                </svg>
+                <svg
+                  class="w-5 h-5 fill-current"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 18.896l-7.416 3.817 1.48-8.279L.004 9.306l8.332-1.151L12 .587z"
+                  />
+                </svg>
+                <svg
+                  class="w-5 h-5 fill-current"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 18.896l-7.416 3.817 1.48-8.279L.004 9.306l8.332-1.151L12 .587z"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="faq" class="py-20 px-6 md:px-12 bg-emerald-50 hidden-section">
+        <div class="max-w-7xl mx-auto">
+          <h2
+            class="text-4xl sm:text-5xl font-extrabold text-center text-green-600 mb-12 font-bayon"
+          >
+            សំណួរដែលគេសួរញឹកញាប់
+          </h2>
+          <div class="space-y-6">
+            <div
+              class="bg-white rounded-2xl shadow-lg border border-emerald-100 overflow-hidden"
+            >
+              <button
+                class="w-full text-left p-6 flex justify-between items-center text-xl font-semibold text-gray-800 focus:outline-none faq-toggle font-bayon"
+                aria-expanded="false"
+                aria-controls="faq-answer-1"
+              >
+                តើខ្ញុំអាចបរិច្ចាគតាមវិធីណាខ្លះ?
+                <svg
+                  class="w-6 h-6 text-green-600 transform transition-transform duration-300 faq-icon"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  ></path>
+                </svg>
+              </button>
+              <div id="faq-answer-1" class="px-6 pb-6 hidden faq-content">
+                <p class="text-gray-700 leading-relaxed text-base border-t pt-4">
+                  អ្នកអាចបរិច្ចាគតាមរយៈកាតឥណទាន (Visa, MasterCard), ABA Pay, Wing Money,
+                  ឬការផ្ទេរប្រាក់តាមធនាគារ។
+                  ព័ត៌មានលម្អិតទាំងអស់មាននៅក្នុងទម្រង់បរិច្ចាគរបស់យើង។
+                </p>
+              </div>
+            </div>
+            <div
+              class="bg-white rounded-2xl shadow-lg border border-emerald-100 overflow-hidden"
+            >
+              <button
+                class="w-full text-left p-6 flex justify-between items-center text-xl font-semibold text-gray-800 focus:outline-none faq-toggle font-bayon"
+                aria-expanded="false"
+                aria-controls="faq-answer-2"
+              >
+                តើការបរិច្ចាគរបស់ខ្ញុំទៅដល់ណា?
+                <svg
+                  class="w-6 h-6 text-green-600 transform transition-transform duration-300 faq-icon"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  ></path>
+                </svg>
+              </button>
+              <div id="faq-answer-2" class="px-6 pb-6 hidden faq-content">
+                <p class="text-gray-700 leading-relaxed text-base border-t pt-4">
+                  រាល់ការបរិច្ចាគរបស់អ្នកត្រូវបានបែងចែកដោយផ្ទាល់ទៅគម្រោងដែលអ្នកជ្រើសរើស
+                  ឬទៅមូលនិធិទូទៅរបស់យើង ប្រសិនបើអ្នកមិនបញ្ជាក់។
+                  យើងសូមធានាថាជំនួយរបស់អ្នកនឹងប្រគល់ជូនទៅកាន់​ប្រភេទមូលនិធិ។
+                </p>
+              </div>
+            </div>
+            <div
+              class="bg-white rounded-2xl shadow-lg border border-emerald-100 overflow-hidden"
+            >
+              <button
+                class="w-full text-left p-6 flex justify-between items-center text-xl font-semibold text-gray-800 focus:outline-none faq-toggle font-bayon"
+                aria-expanded="false"
+                aria-controls="faq-answer-3"
+              >
+                តើខ្ញុំអាចតាមដានផលប្រយោជន៏នៃការបរិច្ចាគរបស់ខ្ញុំដោយរបៀបណា?
+                <svg
+                  class="w-6 h-6 text-green-600 transform transition-transform duration-300 faq-icon"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  ></path>
+                </svg>
+              </button>
+              <div id="faq-answer-3" class="px-6 pb-6 hidden faq-content">
+                <p class="text-gray-700 leading-relaxed text-base border-t pt-4">
+                  យើងផ្តល់របាយការណ៍ជាទៀងទាត់ និងបច្ចុប្បន្នភាពលើវឌ្ឍនភាពគម្រោង
+                  នៅទំព័ររបស់យើង និងតាមរយៈព្រឹត្តិបត្រព័ត៌មាន។
+                  អ្នកក៏អាចទាក់ទងមកយើងសម្រាប់ព័ត៌មានលម្អិតបន្ថែម។
+                </p>
+              </div>
+            </div>
+            <div
+              class="bg-white rounded-2xl shadow-lg border border-emerald-100 overflow-hidden"
+            >
+              <button
+                class="w-full text-left p-6 flex justify-between items-center text-xl font-semibold text-gray-800 focus:outline-none faq-toggle font-bayon"
+                aria-expanded="false"
+                aria-controls="faq-answer-4"
+              >
+                តើខ្ញុំអាចក្លាយជាអ្នកស្ម័គ្រចិត្តបានទេ?
+                <svg
+                  class="w-6 h-6 text-green-600 transform transition-transform duration-300 faq-icon"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  ></path>
+                </svg>
+              </button>
+              <div id="faq-answer-4" class="px-6 pb-6 hidden faq-content">
+                <p class="text-gray-700 leading-relaxed text-base border-t pt-4">
+                  បាទ/ចាស! យើងស្វាគមន៍អ្នកស្ម័គ្រចិត្តជានិច្ច។
+                  សូមទាក់ទងមកយើងតាមរយៈទម្រង់ទំនាក់ទំនងរបស់យើង
+                  ដើម្បីពិភាក្សាអំពីឱកាសស្ម័គ្រចិត្តដែលមាន។
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact-us" class="py-20 px-6 md:px-12 bg-white hidden-section">
+        <div class="max-w-7xl mx-auto">
+          <h2
+            class="text-4xl sm:text-5xl font-extrabold text-center text-green-600 mb-12 font-bayon"
+          >
+            ទំនាក់ទំនងជាមួយយើង
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+            <div
+              class="p-8 bg-emerald-50 rounded-2xl shadow-xl border border-emerald-100"
+            >
+              <h3 class="text-2xl font-semibold text-gray-800 mb-6 font-bayon">
+                ព័ត៌មានលម្អិតទំនាក់ទំនង
+              </h3>
+              <div class="space-y-7 text-gray-700 text-lg">
+                <p class="flex items-start">
+                  <svg
+                    class="w-7 h-7 text-green-600 mr-4 flex-shrink-0 mt-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.828 0L6.343 16.657m10.314-10.314L13.414 3.1a1.998 1.998 0 00-2.828 0L6.343 6.343m10.314 10.314A9.001 9.001 0 0017.657 6.343M6.343 17.657A9.001 9.001 0 016.343 6.343m0 11.314l-4.95-4.95a2 2 0 010-2.828L6.343 6.343"
+                    ></path>
+                  </svg>
+                  <div>
+                    <span class="font-semibold text-gray-800">ទីតាំងការិយាល័យ:</span>
+                    អគារលេខ ៨៨, មហាវិថីព្រះនរោត្តម, រាជធានីភ្នំពេញ, ប្រទេសកម្ពុជា
+                  </div>
+                </p>
+                <p class="flex items-start">
+                  <svg
+                    class="w-7 h-7 text-green-600 mr-4 flex-shrink-0 mt-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                    ></path>
+                  </svg>
+                  <div>
+                    <span class="font-semibold text-gray-800">ទូរស័ព្ទ:</span> +855 (0)
+                    23 123 456
+                  </div>
+                </p>
+                <p class="flex items-start">
+                  <svg
+                    class="w-7 h-7 text-green-600 mr-4 flex-shrink-0 mt-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-17 4v7a2 2 0 002 2h12a2 2 0 002-2v-7m-4-6l-7.89 5.26a2 2 0 00-2.22 0L3 8"
+                    ></path>
+                  </svg>
+                  <div>
+                    <span class="font-semibold text-gray-800">អ៊ីមែល:</span>
+                    contact@donate4khmer.com
+                  </div>
+                </p>
+              </div>
+              <div class="mt-8 rounded-lg overflow-hidden shadow-md border border-gray-200">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3908.7770932598826!2d104.91425111471017!3d11.551695491799757!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3109513dc76a666f%3A0x2f15951f28126745!2sPhnom%20Penh!5e0!3m2!1sen!2skh!4v1678888888888!5m2!1sen!2skh"
+                  width="100%"
+                  height="250"
+                  style="border:0;"
+                  allowfullscreen=""
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"
+                  title="Google Map of Phnom Penh, Cambodia"
+                ></iframe>
+              </div>
+            </div>
+
+            <div
+              class="p-8 bg-emerald-50 rounded-2xl shadow-xl border border-emerald-100"
+            >
+              <h3 class="text-2xl font-semibold text-gray-800 mb-6 font-bayon">
+                ផ្ញើសារមកកាន់យើង
+              </h3>
+              <form id="contact-form" class="space-y-6">
+                <div>
+                  <label
+                    for="contact-name"
+                    class="block text-gray-700 text-base font-bold mb-2"
+                  >
+                    ឈ្មោះពេញ
+                  </label>
+                  <input
+                    type="text"
+                    id="contact-name"
+                    name="contact-name"
+                    class="shadow-sm appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200 placeholder-gray-400"
+                    placeholder="ឈ្មោះពេញរបស់អ្នក"
+                    required
+                    aria-describedby="name-error"
+                  />
+                  <p id="name-error" class="text-rose-500 text-sm mt-1 hidden" role="alert">
+                    សូមបញ្ចូលឈ្មោះរបស់អ្នក។
+                  </p>
+                </div>
+                <div>
+                  <label
+                    for="contact-email"
+                    class="block text-gray-700 text-base font-bold mb-2"
+                  >
+                    អ៊ីមែល
+                  </label>
+                  <input
+                    type="email"
+                    id="contact-email"
+                    name="contact-email"
+                    class="shadow-sm appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200 placeholder-gray-400"
+                    placeholder="អ៊ីមែលរបស់អ្នក"
+                    required
+                    aria-describedby="email-error"
+                  />
+                  <p id="email-error" class="text-rose-500 text-sm mt-1 hidden" role="alert">
+                    សូមបញ្ចូលអ៊ីមែលត្រឹមត្រូវ។
+                  </p>
+                </div>
+                <div>
+                  <label
+                    for="contact-subject"
+                    class="block text-gray-700 text-base font-bold mb-2"
+                  >
+                    ប្រធានបទ
+                  </label>
+                  <input
+                    type="text"
+                    id="contact-subject"
+                    name="contact-subject"
+                    class="shadow-sm appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200 placeholder-gray-400"
+                    placeholder="ប្រធានបទសារ"
+                    required
+                    aria-describedby="subject-error"
+                  />
+                  <p id="subject-error" class="text-rose-500 text-sm mt-1 hidden" role="alert">
+                    សូមបញ្ចូលប្រធានបទ។
+                  </p>
+                </div>
+                <div>
+                  <label
+                    for="contact-message"
+                    class="block text-gray-700 text-base font-bold mb-2"
+                  >
+                    សាររបស់អ្នក
+                  </label>
+                  <textarea
+                    id="contact-message"
+                    name="contact-message"
+                    rows="6"
+                    class="shadow-sm appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200 placeholder-gray-400 resize-y"
+                    placeholder="សរសេរសាររបស់អ្នកនៅទីនេះ..."
+                    required
+                    aria-describedby="message-error"
+                  ></textarea>
+                  <p id="message-error" class="text-rose-500 text-sm mt-1 hidden" role="alert">
+                    សូមបញ្ចូលសារ។
+                  </p>
+                </div>
+                <div
+                  id="contact-message-feedback"
+                  class="text-center text-base font-semibold text-emerald-700 hidden py-2 px-4 rounded-lg bg-emerald-100 border border-emerald-200"
+                  role="status"
+                  aria-live="polite"
+                >
+                  សាររបស់អ្នកត្រូវបានផ្ញើដោយជោគជ័យ! យើងនឹងទាក់ទងអ្នកឆាប់ៗនេះ។
+                </div>
+                <button
+                  type="submit"
+                  class="bg-green-600 text-white rounded-lg py-3.5 px-6 text-lg font-semibold cursor-pointer transition-all duration-300 hover:bg-green-700 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-opacity-50 w-full"
+                  aria-label="Send Message"
+                >
+                  ផ្ញើសារ
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="bg-gray-900 text-gray-200 py-16 px-6 md:px-12">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-12">
+          <div class="col-span-1 md:col-span-1">
+            <a
+              href="#hero-section"
+              class="flex items-center text-3xl font-bold text-white tracking-tight mb-4"
+              aria-label="Donate4Khmer Home"
+            >
+              <span>DONATE</span>
+              <span class="text-emerald-500 animate-pulse text-4xl">.</span>
+              <span class="text-sky-400 text-base ml-1">for Khmer</span>
+            </a>
+            <p class="text-gray-400 text-sm leading-relaxed mb-4">
+              យើងជាស្ថាប័នឈានមុខគេ
+              ដែលប្តេជ្ញាជំរុញការផ្លាស់ប្តូរជាវិជ្ជមាននៅក្នុងប្រទេសកម្ពុជា
+              តាមរយៈការផ្តល់ជំនួយប្រកបដោយតម្លាភាព
+              និងប្រសិទ្ធភាពខ្ពស់ដល់គម្រោងដែលផ្លាស់ប្តូរជីវិត។
+            </p>
+            <div class="flex space-x-4">
+              <a
+                href="#"
+                class="text-gray-400 hover:text-white transition-colors"
+                aria-label="Facebook"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  class="w-6 h-6"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33V22C17.361 21.23 22 16.991 22 12z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </a>
+              <a
+                href="#"
+                class="text-gray-400 hover:text-white transition-colors"
+                aria-label="LinkedIn"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  class="w-6 h-6"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M19.5 0h-15C2.012 0 0 2.013 0 4.5v15C0 21.988 2.013 24 4.5 24h15c2.488 0 4.5-2.012 4.5-4.5v-15C24 2.013 21.987 0 19.5 0zm-7.5 19h-3V10h3v9zm3-9h-3v9h3v-9zm0-3c0-1.657 1.343-3 3-3s3 1.343 3 3-1.343 3-3 3-3-1.343-3-3zM12 12c0-1.657 1.343-3 3-3s3 1.343 3 3-1.343 3-3 3-3-1.343-3-3zM9 12c0-1.657 1.343-3 3-3s3 1.343 3 3-1.343 3-3 3-3-1.343-3-3z"
+                  />
+                </svg>
+              </a>
+              <a
+                href="#"
+                class="text-gray-400 hover:text-white transition-colors"
+                aria-label="Twitter"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  class="w-6 h-6"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M24 4.557a9.83 9.83 0 01-2.828.775 4.932 4.932 0 002.165-2.724 9.864 9.864 0 01-3.13 1.194A4.922 4.922 0 0014.004 0c-2.727 0-4.939 2.213-4.939 4.94 0 .387.044.764.127 1.127A13.978 13.978 0 011.64 3.033a4.92 4.92 0 00-.665 2.463c0 1.71.87 3.213 2.188 4.096A4.918 4.918 0 01.99 9.092v.06a4.948 4.948 0 003.96 4.845 4.938 4.938 0 01-2.221.084 4.934 4.934 0 004.604 3.425 9.878 9.878 0 01-6.102 2.105c-.395 0-.78-.023-1.163-.068a13.953 13.953 0 007.545 2.209c9.05 0 14.002-7.493 14.002-14.003 0-.213-.005-.426-.014-.637.962-.695 1.797-1.564 2.457-2.55z"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="text-lg font-semibold text-white mb-6 font-bayon">
+              តំណភ្ជាប់សំខាន់ៗ
+            </h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="#hero-section"
+                  class="text-gray-400 hover:text-white transition-colors text-sm"
+                  >ទំព័រដើម</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#donations"
+                  class="text-gray-400 hover:text-white transition-colors text-sm"
+                  >គម្រោងរបស់យើង</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#how-it-works"
+                  class="text-gray-400 hover:text-white transition-colors text-sm"
+                  >របៀបបរិច្ចាគ</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#about-us"
+                  class="text-gray-400 hover:text-white transition-colors text-sm"
+                  >អំពីយើង</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#contact-us"
+                  class="text-gray-400 hover:text-white transition-colors text-sm"
+                  >ទំនាក់ទំនង</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#faq"
+                  class="text-gray-400 hover:text-white transition-colors text-sm"
+                  >សំណួរដែលគេសួរញឹកញាប់</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-lg font-semibold text-white mb-6 font-bayon">ធនធានបន្ថែម</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white transition-colors text-sm"
+                  >គោលការណ៍ឯកជនភាព</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white transition-colors text-sm"
+                  >លក្ខខណ្ឌប្រើប្រាស់</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white transition-colors text-sm"
+                  >ផែនទីគេហទំព័រ</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-span-1 md:col-span-1">
+            <h3 class="text-lg font-semibold text-white mb-6 font-bayon">
+              ព្រឹត្តិបត្រព័ត៌មានរបស់យើង
+            </h3>
+            <p class="text-gray-400 text-sm mb-4">
+              ជាវព្រឹត្តិបត្រព័ត៌មានរបស់យើង ដើម្បីទទួលបានព័ត៌មានថ្មីៗ
+              អំពីគម្រោងសំខាន់ៗ និងរឿងរ៉ាវជោគជ័យដ៏បំផុសគំនិត។
+            </p>
+            <form id="newsletter-form" class="flex flex-col sm:flex-row gap-3">
+              <input
+                type="email"
+                placeholder="អ៊ីមែលរបស់អ្នក"
+                class="flex-grow py-2 px-4 rounded-lg bg-gray-700 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-colors"
+                aria-label="Your email for newsletter"
+                required
+              />
+              <button
+                type="submit"
+                class="bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors shadow-md"
+                aria-label="Subscribe to newsletter"
+              >
+                ជាវ
+              </button>
+            </form>
+            <div
+              id="newsletter-feedback"
+              class="text-center text-sm font-semibold text-emerald-300 hidden mt-4 py-2 px-4 rounded-lg bg-emerald-800 border border-emerald-700"
+              role="status"
+              aria-live="polite"
+            >
+              សូមអរគុណសម្រាប់ការជាវ!
+            </div>
+          </div>
+        </div>
+
+        <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400 text-sm">
+          © <span id="current-year"></span> Donate4Khmer. រក្សាសិទ្ធិគ្រប់យ៉ាង។
+          <span class="block mt-2"
+            >ជំរុញការផ្លាស់ប្តូរវិជ្ជមាន មួយជំហានម្តងៗ។</span
+          >
+        </div>
+      </footer>
+
+      <!-- Donation Modal (Primary payment form) -->
+      <div
+        id="donation-modal"
+        class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-[100] hidden p-4 overflow-y-auto"
+        aria-hidden="true"
+        role="dialog"
+        aria-modal="true"
+      >
+        <div
+          class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md mx-auto relative transform transition-all duration-300 scale-95 opacity-0 max-h-[90vh] overflow-y-auto"
+          id="modal-content"
+        >
+          <button
+            id="close-modal"
+            class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-3xl font-bold leading-none"
+            aria-label="Close donation modal"
+          >
+            ×
+          </button>
+          <h3 class="text-3xl font-bold text-green-600 mb-6 text-center font-bayon">
+            បរិច្ចាគ
+          </h3>
+          <div
+            class="bg-white p-8 rounded-3xl shadow-2xl max-w-xl w-full text-center border-t-4 border-blue-600"
+          >
+            <div class="mb-8">
+              <h2 class="text-4xl font-extrabold text-gray-800 mb-2">
+                ជម្រើសបរិច្ចាគ
+              </h2>
+              <p class="text-gray-500 text-lg">
+                គាំទ្របេសកកម្មរបស់យើងនៅ Donate4Khmer!
+              </p>
+            </div>
+
+            <div class="mb-8">
+              <label
+                for="donationAmount"
+                class="block text-gray-700 text-xl font-semibold mb-3 text-left"
+              >
+                ចំនួនទឹកប្រាក់បរិច្ចាគ (USD)
+              </label>
+              <div class="relative mb-2">
+                <span
+                  class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-2xl font-bold"
+                  >$</span
+                >
+                <input
+                  type="number"
+                  id="donationAmount"
+                  min="1"
+                  value="10"
+                  class="w-full p-4 pl-12 pr-4 border border-gray-300 rounded-xl shadow-inner focus:ring-blue-500 focus:border-blue-500 text-2xl text-center font-medium transition duration-200"
+                  placeholder="បញ្ចូលចំនួនទឹកប្រាក់"
+                />
+              </div>
+              <p id="amountError" class="text-red-500 text-sm text-left ml-2 hidden">
+                សូមបញ្ចូលចំនួនទឹកប្រាក់ដែលត្រឹមត្រូវ និងវិជ្ជមាន។
+              </p>
+              <div
+                id="quickAmountButtons"
+                class="flex flex-wrap justify-center gap-3 mt-4"
+              >
+                <button class="quick-amount-button" data-amount="5">$5</button>
+                <button class="quick-amount-button" data-amount="10">$10</button>
+                <button class="quick-amount-button" data-amount="25">$25</button>
+                <button class="quick-amount-button" data-amount="50">$50</button>
+                <button class="quick-amount-button" data-amount="100">$100</button>
+              </div>
+            </div>
+
+            <div class="mb-8">
+              <label class="block text-gray-700 text-xl font-semibold mb-3 text-left">
+                ជ្រើសរើសវិធីទូទាត់
+              </label>
+              <div
+                id="paymentMethodsContainer"
+                class="grid grid-cols-1 md:grid-cols-2 gap-4"
+              >
+                <div class="payment-method-card active" data-method="credit_card">
+                  <svg
+                    class="w-9 h-9 text-blue-600"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M21 4H3C1.895 4 1 4.895 1 6v12c0 1.105.895 2 2 2h18c1.105 0 2-.895 2-2V6c0-1.105-.895-2-2-2zm-1 14H4c-.552 0-1-.448-1-1V7c0-.552.448-1 1-1h16c.552 0 1 .448 1 1v10c0 .552-.448 1-1 1zM3 8h18v2H3V8zm0 4h18v2H3v-2zM3 16h18v2H3v-2z"
+                    />
+                  </svg>
+                  <span>កាតឥណទាន</span>
+                  <div class="flex ml-auto gap-2">
+                    <svg
+                      viewBox="0 0 24 24"
+                      class="w-7 h-7 text-gray-500"
+                      fill="currentColor"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M18.892 10.383L15.35 15.617h-1.575l3.542-5.234zM22.067 7.027H24L20.897 16h-2.906l-.504-2.457c-.12-.582-.578-1.28-1.34-1.28-.795 0-1.096.712-1.096 1.764v1.97h-2.185V7.027h2.09c.277.618.73 1.258 1.157 1.637l.426.357.262-.279c.626-.666 1.488-1.442 2.05-2.073l1.865-1.996zm-17.76 0l-3.307 9.073H3.04l.763-2.164h3.18L7.755 7.027H4.307zm-.59 5.093l.972-2.756.974 2.756h-1.946zM24 6.845V7.027h-2.464c.203-.79.52-1.748.52-2.31 0-.294-.13-.42-.31-.42-.34 0-.616.14-.847.456l-3.906 4.98-1.082-4.98c-.208-.946-.576-1.565-1.41-1.565-1.24 0-2.19.78-2.19 2.073 0 .762.616 1.57 1.34 2.37l2.87 3.09c.616.666 1.28 1.41 1.28 2.34 0 1.25-.87 2.19-2.09 2.19-.884 0-1.597-.42-2.03-1.082l-.462-.77-.42-.647c-.504-.77-.962-1.597-1.34-2.31L1 7.027H.03c.12.72.18 1.41.18 2.03 0 2.22-1.61 3.59-4.322 3.59h-.032l-3.307 9.073H0l.763-2.164h3.18l.847-2.343H1.46c-.09 1.16-.18 1.83-.18 2.19 0 .54.09.72.36.72.396 0 .81-.306 1.157-.756l.445-.478.472-.51c.54-.576.994-1.26 1.35-1.92l.82-1.48L7.54 16.027h-.062c-2.73 0-4.475-1.37-4.475-3.59 0-.62.09-1.31.2-2.03z"
+                      />
+                    </svg>
+                    <svg
+                      viewBox="0 0 24 24"
+                      class="w-7 h-7 text-gray-500"
+                      fill="currentColor"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8zm4.477-8.204c-.332-.82-.676-1.554-1.03-2.19-.623-1.127-1.455-2.022-2.492-2.684-1.037-.662-2.228-.993-3.575-.993-1.347 0-2.538.331-3.575.993-1.037.662-1.869 1.557-2.492 2.684-.354.636-.698 1.37-.106 2.19.223.504 1.334 1.008 2.766 1.008h4.74c1.432 0 2.543-.504 2.766-1.008z"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <div class="payment-method-card" data-method="aba_pay">
+                  <img
+                    src="https://placehold.co/50x50/0000FF/FFFFFF?text=ABA"
+                    alt="ABA Pay"
+                    class="w-12 h-12 rounded-full shadow-sm"
+                  />
+                  <span>ABA Pay</span>
+                </div>
+                <div class="payment-method-card" data-method="wing_money">
+                  <img
+                    src="https://placehold.co/50x50/FF0000/FFFFFF?text=WING"
+                    alt="Wing Money"
+                    class="w-12 h-12 rounded-full shadow-sm"
+                  />
+                  <span>Wing Money</span>
+                </div>
+                <div class="payment-method-card" data-method="bank_transfer">
+                  <svg
+                    class="w-9 h-9 text-gray-700"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M20 4H4c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zm-1 14H5c-.552 0-1-.448-1-1V7c0-.552.448-1 1-1h14c.552 0 1 .448 1 1v10c0 .552-.448 1-1 1zM7 9h10v2H7zm0 4h10v2H7z"
+                    />
+                  </svg>
+                  <span>ការផ្ទេរប្រាក់តាមធនាគារ</span>
+                </div>
+              </div>
+            </div>
+
+            <div
+              id="paymentDetails"
+              class="mb-8 p-6 bg-blue-50 rounded-xl border border-blue-200 shadow-inner hidden"
+            >
+              </div>
+
+            <button
+              id="payButton"
+              class="mt-6 bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-full transition duration-300 ease-in-out transform hover:scale-105 shadow-xl w-full flex items-center justify-center text-xl"
+            >
+              <span id="buttonText">បរិច្ចាគឥឡូវនេះ</span>
+              <div id="loadingSpinner" class="loader ml-4 hidden"></div>
+            </button>
+
+            <hr class="my-10 border-gray-200" />
+            <p class="text-gray-600 text-base italic mb-4">
+              ព័ត៌មានលម្អិតទាំងអស់មាននៅក្នុងទម្រង់បរិច្ចាគរបស់យើង។
+            </p>
+            <p class="text-red-500 text-sm font-semibold">
+              **ចំណាំ៖ នេះគ្រាន់តែជាការក្លែងបន្លំនៃការទូទាត់ប៉ុណ្ណោះ
+              មិនមែនជាដំណើរការទូទាត់ជាក់ស្តែងទេ។**
+            </p>
+          </div>
+          </div>
+      </div>
+
+      <!-- Payment Status Modal (Success/Failure message) -->
+      <div id="paymentModal" class="modal-overlay hidden">
+        <div class="modal-content">
+          <button class="modal-close-button" id="closeModal">×</button>
+          <div id="modalIcon" class="mb-5">
+            </div>
+          <h3
+            id="modalTitle"
+            class="text-3xl font-extrabold mb-4 text-gray-800"
+          ></h3>
+          <p id="modalMessage" class="text-gray-700 mb-8 text-lg"></p>
+          <div class="flex flex-col space-y-4">
+            <button
+              id="modalOkButton"
+              class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full transition duration-300 transform hover:scale-105"
+            >
+              យល់ព្រម
+            </button>
+            <button
+              id="modalSecondaryButton"
+              class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-3 px-6 rounded-full transition duration-300 hidden transform hover:scale-105"
+            >
+              ត្រឡប់ទៅគេហទំព័រដើម
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div
+        id="copyToast"
+        class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-gray-800 text-white px-5 py-3 rounded-xl shadow-lg transition-all duration-300 ease-in-out opacity-0 translate-y-5 hidden z-50"
+      >
+        <p id="copyToastMessage"></p>
+      </div>
+
+      <button
+        id="back-to-top"
+        class="fixed bottom-6 right-6 bg-green-600 text-white p-3 rounded-full shadow-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-opacity-50 transition-all duration-300 z-40 opacity-0 scale-0"
+        aria-label="Back to top"
+      >
+        <svg
+          class="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M5 10l7-7m0 0l7 7m-7-7v18"
+          ></path>
+        </svg>
+      </button>
+    </div>
+
+    <script src="https://unpkg.com/flowbite@1.4.0/dist/flowbite.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
